@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" data-dark>
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Envío de formularios</title>
+   <link rel="stylesheet" href="css.css">
+</head>
+
+<body>
+   <header class="header">
+      <h1>Envío de formularios</h1>
+   </header>
+   <main>
+      <section id="seccion14" class="section" data-scroll-spy>
+         <h2>Validaciones de Formulario</h2>
+         <form class="contact-form">
+            <legend>Envíanos tus comentarios</legend>
+            <input type="text" name="name" placeholder="Escribe tu nombre"
+               title="Nombre sólo acepta letras y espacios en blanco" pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" required>
+            <input type="email" name="email" placeholder="Escribe tu email" title="Email incorrecto"
+               pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" required>
+            <input type="text" name="subject" placeholder="Asunto a tratar" title="El Asunto es requerido" required>
+            <textarea name="comments" rows="5" placeholder="Escribe tus comentarios"
+               title="Tu comentario no debe exceder los 255 caracteres" data-pattern="^.{1,255}$" required></textarea>
+            <input type="submit" value="Enviar">
+            <div class="contact-form-loader none">
+               <img src="assets/loader.svg" alt="Cargando">
+            </div>
+            <div class="contact-form-response none">
+               <p>Los datos han sido enviados</p>
+            </div>
+         </form>
+      </section>
+   </main>
+   <button class="scroll-top-btn hidden">&#11014;</button>
+   <button class="dark-theme-btn">🌙</button>
+   <script src="index.js" type="module"></script>
+</body>
+
+</html>
