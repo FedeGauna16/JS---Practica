@@ -2,7 +2,9 @@ console.log("hola");
 
 const d = document,
    $form = d.querySelector(".contact-form"),
-   $inputs = d.querySelectorAll(".contact-form [required]");
+   $inputs = d.querySelectorAll(".contact-form [required]"),
+   $loader = d.querySelector(".contact-form-loader"),
+   $response = d.querySelector(".contact-form-response");
 
    $inputs.forEach(el => {
       const $span = d.createElement("span");
@@ -32,22 +34,41 @@ const d = document,
          }
       }
    });
+//cabral.manuel@yandex.com
+// pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" patron del nombre
+   const sendForm = async (e) => {
+      try {
+         let res = await fetch(`https://formsubmit.co/ajax/${e.target.email.value}`, {
+            method: "POST",
+            body: new FormData(e.target)
+         });
+
+         if(res.ok) {
+            console.log(res);
+            console.log(e.target.email.value);
+            $loader.classList.add("none");
+            $response.classList.remove("none");
+            //$form.reset();
+
+         }
+         else {
+            throw {status: res.status, statusText: res.statusText};
+         }
+      } catch (err) {
+         let message = err.statusText || "Ocurrió un error";
+         $response.innerHTML = `Error ${err.status}: ${message}`;
+      } finally {
+         setTimeout(() => {
+            $response.classList.add("none");
+         }, 3000);
+      }
+   }
 
    d.addEventListener("submit", e =>{
       e.preventDefault();
       alert("Enviando");
-     
-      const $loader = d.querySelector(".contact-form-loader"),
-         $response = d.querySelector(".contact-form-response");
          
       $loader.classList.remove("none");
 
-      setTimeout(() => {
-         $loader.classList.add("none");
-         $response.classList.remove("none");
-         $form.reset();
-
-         setTimeout(() => $response.classList.add("none"), 3000);
-      }, 3000)
-
+      sendForm(e);
    });
